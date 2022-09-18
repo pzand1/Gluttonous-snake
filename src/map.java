@@ -13,4 +13,8 @@ public class map {
     public int getSize_y(){
         return size_y;
     }
+    public void draw(){
+
+    }
+
 }

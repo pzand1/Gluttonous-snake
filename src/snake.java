@@ -1,8 +1,11 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.LinkedList;
 
 public class snake {
-    private String headed;
-    class bodyCoor{
+    private String headed = "w";
+//    private static ImageIcon head = new ImageIcon(snake.class.getResource())
+    static class bodyCoor{
         int x;
         int y;
         public bodyCoor(int x, int y) {
@@ -15,6 +18,16 @@ public class snake {
         body.add(new bodyCoor(x, y));
     }
 
+    public void changeHeaded(int character){
+        switch (character) {
+            case 87, 38 -> this.headed = "w";
+            case 83, 40 -> this.headed = "s";
+            case 65, 37 -> this.headed = "a";
+            case 68, 39 -> this.headed = "d";
+            default -> {
+            }
+        }
+    }
     //判断是否死亡
     public boolean ifDied(){
         bodyCoor head = body.peekLast();
