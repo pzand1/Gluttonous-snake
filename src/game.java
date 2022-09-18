@@ -10,7 +10,6 @@ public class game {
         food Food = new food(Snake, Map);
         int dt = Integer.parseInt(args[2]);
         new gui(Snake);
-
         while(!Snake.ifDied()) {
             Snake.move(Food, Map);
             Food.draw();
