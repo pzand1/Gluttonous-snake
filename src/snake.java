@@ -1,72 +1,49 @@
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.LinkedList;
 
 public class snake {
-    private String head;
-    private int[] x_body;
-    private int[] y_body;
-    private int length;
+    private String headed;
+    class bodyCoor{
+        int x;
+        int y;
+        public bodyCoor(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    public LinkedList<bodyCoor> body = new LinkedList<>();
     snake(map m, int x, int y){
-        this.x_body = new int[m.getSize_x()];
-        this.y_body = new int[m.getSize_y()];
-        this.x_body[0] = x;
-        this.y_body[0] = y;
-        this.length++;
-    }
-    public int getLength(){
-        return length;
-    }
-    public int[] getX_body(){
-        return x_body;
-    }
-    public int[] getY_body(){
-        return y_body;
+        body.add(new bodyCoor(x, y));
     }
 
     //判断是否死亡
     public boolean ifDied(){
-        for(int i = 1;i < this.length; i++){
-            if(x_body[0] == x_body[i] && y_body[0] == y_body[i])
+        bodyCoor head = body.peekLast();
+        for(bodyCoor b : body){
+            if(b.x == head.x && b.y == head.y && !b.equals(head))
                 return true;
         }
         return false;
     }
     //移动
     public void move(food f, map m){
-        int tail_x = x_body[length - 1];
-        int tail_y = y_body[length - 1];
-
-        for(int i = 0; i < this.length - 1; i++){
-            x_body[i + 1] = x_body[i];
-            y_body[i + 1] = y_body[i];
+        bodyCoor head = body.getLast();
+        //向前移动
+        switch (this.headed) {
+            case "w" -> body.add(new bodyCoor(head.x, head.y + 1));
+            case "s" -> body.add(new bodyCoor(head.x, head.y - 1));
+            case "a" -> body.add(new bodyCoor(head.x - 1, head.y));
+            case "d" -> body.add(new bodyCoor(head.x + 1, head.y));
         }
-        switch (this.head) {
-            case "w" -> {
-                x_body[0] = x_body[1];
-                y_body[0] = y_body[1] + 1;
-            }
-            case "s" -> {
-                x_body[0] = x_body[1];
-                y_body[0] = y_body[1] - 1;
-            }
-            case "a" -> {
-                x_body[0] = x_body[1] - 1;
-                y_body[0] = y_body[1];
-            }
-            case "d" -> {
-                x_body[0] = x_body[1] + 1;
-                y_body[0] = y_body[1];
-            }
+        //判断是否越地图边界
+        if(head.x == m.getSize_x()){
+            head.x = 0;
         }
-        if(x_body[0] == m.getSize_x()){
-            x_body[0] = 0;
+        if(head.y == m.getSize_y()){
+            head.y = 0;
         }
-        if (y_body[0] == m.getSize_y())
-
-        if(x_body[0] == f.getX() && y_body[0] == f.getY()){
-            length++;
-            x_body[length] = tail_x;
-            y_body[length] = tail_y;
+        //判断是否吃到食物
+        if(!(head.x == f.getX() && head.y == f.getY())){
+            body.removeFirst();
         }
 
     }

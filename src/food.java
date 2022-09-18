@@ -3,25 +3,36 @@ import java.util.Random;
 public class food {
     private int x;
     private int y;
-    public int getX(){
+    food(snake s, map m){
+        creatFood(s, m);
+    }
+    public int getX() {
         return x;
     }
-    public int getY(){
+
+    public int getY() {
         return y;
     }
-    public void creatFood(snake s, map m){
+    public void creatFood(snake s, map m) {
         Random r = new Random();
         this.x = r.nextInt(m.getSize_x());
         this.y = r.nextInt(m.getSize_y());
-        for(int i = 0;i < s.getLength();i++){
-            if(x == s.getX_body()[i] && y == s.getY_body()[i]){
-                this.x = r.nextInt(m.getSize_x());
-                this.y = r.nextInt(m.getSize_y());
-                i = 0;
+        boolean temp = true;
+        while (temp) {
+            temp = false;
+            for (snake.bodyCoor body : s.body) {
+                if (body.x == this.x && body.y == this.y) {
+                    this.x = r.nextInt(m.getSize_x());
+                    this.y = r.nextInt(m.getSize_y());
+                    temp = true;
+                    break;
+                }
             }
+
         }
     }
-    public void draw(){
+
+    public void draw() {
 
     }
 }
