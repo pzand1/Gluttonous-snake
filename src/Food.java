@@ -1,10 +1,9 @@
-import javax.swing.*;
 import java.util.Random;
 
-public class food {
+public class Food {
     private int x;
     private int y;
-    food(snake s, map m){
+    Food(Snake s, Map m){
         creatFood(s, m);
     }
     public int getX() {
@@ -14,15 +13,15 @@ public class food {
     public int getY() {
         return y;
     }
-    public void creatFood(snake s, map m) {
+    public void creatFood(Snake s, Map m) {
         Random r = new Random();
         this.x = r.nextInt(m.getSize_x());
         this.y = r.nextInt(m.getSize_y());
         boolean temp = true;
         while (temp) {
             temp = false;
-            for (snake.bodyCoor body : s.body) {
-                if (body.x == this.x && body.y == this.y) {
+            for (Snake.bodyCoor body : s.getBody()) {
+                if (body.getX() == this.x && body.getY() == this.y) {
                     this.x = r.nextInt(m.getSize_x());
                     this.y = r.nextInt(m.getSize_y());
                     temp = true;
@@ -31,9 +30,5 @@ public class food {
             }
 
         }
-    }
-
-    public void draw() {
-
     }
 }

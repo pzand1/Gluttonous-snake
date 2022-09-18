@@ -1,8 +1,8 @@
-public class map {
+public class Map {
     private int size_x;
     private int size_y;
 
-    public map(int size_x, int size_y) {
+    public Map(int size_x, int size_y) {
         this.size_x = size_x;
         this.size_y = size_y;
     }

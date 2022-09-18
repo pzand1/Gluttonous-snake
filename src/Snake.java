@@ -1,19 +1,28 @@
-import javax.swing.*;
-import java.awt.*;
 import java.util.LinkedList;
 
-public class snake {
+public class Snake {
     private String headed = "w";
     class bodyCoor{
-        int x;
-        int y;
+        private int x;
+        private int y;
         public bodyCoor(int x, int y) {
             this.x = x;
             this.y = y;
         }
+        public int getX() {
+            return x;
+        }
+        public int getY() {
+            return y;
+        }
     }
-    public LinkedList<bodyCoor> body = new LinkedList<>();
-    snake(map m, int x, int y){
+
+    public LinkedList<bodyCoor> getBody() {
+        return body;
+    }
+
+    private LinkedList<bodyCoor> body = new LinkedList<>();
+    Snake(Map m, int x, int y){
         body.add(new bodyCoor(x, y));
     }
 
@@ -27,7 +36,7 @@ public class snake {
             }
         }
     }
-    //åˆ¤æ–­æ˜¯å¦æ­»äº¡
+    //ÅĞ¶ÏÊÇ·ñËÀÍö
     public boolean ifDied(){
         bodyCoor head = body.peekLast();
         for(bodyCoor b : body){
@@ -36,31 +45,27 @@ public class snake {
         }
         return false;
     }
-    //ç§»åŠ¨
-    public void move(food f, map m){
+    //ÒÆ¶¯
+    public void move(Food f, Map m){
         bodyCoor head = body.getLast();
-        //å‘å‰ç§»åŠ¨
+        //ÏòÇ°ÒÆ¶¯
         switch (this.headed) {
-            case "w" -> body.add(new bodyCoor(head.x, head.y + 1));
-            case "s" -> body.add(new bodyCoor(head.x, head.y - 1));
+            case "s" -> body.add(new bodyCoor(head.x, head.y + 1));
+            case "w" -> body.add(new bodyCoor(head.x, head.y - 1));
             case "a" -> body.add(new bodyCoor(head.x - 1, head.y));
             case "d" -> body.add(new bodyCoor(head.x + 1, head.y));
         }
-        //åˆ¤æ–­æ˜¯å¦è¶Šåœ°å›¾è¾¹ç•Œ
+        //ÅĞ¶ÏÊÇ·ñÔ½µØÍ¼±ß½ç
         if(head.x == m.getSize_x()){
             head.x = 0;
         }
         if(head.y == m.getSize_y()){
             head.y = 0;
         }
-        //åˆ¤æ–­æ˜¯å¦åƒåˆ°é£Ÿç‰©
+        //ÅĞ¶ÏÊÇ·ñ³Ôµ½Ê³Îï
         if(!(head.x == f.getX() && head.y == f.getY())){
             body.removeFirst();
         }
-
-    }
-
-    public void draw(){
 
     }
 }
