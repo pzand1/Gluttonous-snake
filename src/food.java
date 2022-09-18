@@ -1,6 +1,11 @@
+import javax.swing.*;
 import java.util.Random;
 
 public class food {
+    private static ImageIcon foodImage = new ImageIcon(snake.class.getResource("../images/food.png"));
+    public static ImageIcon getFoodImage() {
+        return foodImage;
+    }
     private int x;
     private int y;
     food(snake s, map m){

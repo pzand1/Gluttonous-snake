@@ -4,8 +4,32 @@ import java.util.LinkedList;
 
 public class snake {
     private String headed = "w";
-//    private static ImageIcon head = new ImageIcon(snake.class.getResource())
-    static class bodyCoor{
+
+    public static ImageIcon getHeadUp() {
+        return headUp;
+    }
+
+    public static ImageIcon getHeadDown() {
+        return headDown;
+    }
+
+    public static ImageIcon getHeadLeft() {
+        return headLeft;
+    }
+
+    public static ImageIcon getHeadRight() {
+        return headRight;
+    }
+
+    public static ImageIcon getBodyImage() {
+        return bodyImage;
+    }
+    private static ImageIcon headUp = new ImageIcon(snake.class.getResource("../images/up.png"));
+    private static ImageIcon headDown = new ImageIcon(snake.class.getResource("../images/down.png"));
+    private static ImageIcon headLeft = new ImageIcon(snake.class.getResource("../images/left.png"));
+    private static ImageIcon headRight = new ImageIcon(snake.class.getResource("../images/right.png"));
+    private static ImageIcon bodyImage = new ImageIcon(snake.class.getResource("../images/body.png"));
+    class bodyCoor{
         int x;
         int y;
         public bodyCoor(int x, int y) {
@@ -15,7 +39,7 @@ public class snake {
     }
     public LinkedList<bodyCoor> body = new LinkedList<>();
     snake(map m, int x, int y){
-        body.add(new bodyCoor(x, y));
+        //body.add(new bodyCoor(x, y));
     }
 
     public void changeHeaded(int character){
