@@ -74,7 +74,7 @@ public class Snake {
     //移动
     public void move(Food f, Map m){
         bodyCoor head = body.getLast();
-        current_headed = headed;
+        this.current_headed = this.headed;
         //向前移动
         switch (this.headed) {
             case "s" -> body.add(new bodyCoor(head.x, head.y + 1));
