@@ -13,7 +13,6 @@ public class Main extends JFrame {
     private Snake snake = new Snake(map, 0 ,39);//创建蛇
     private Food food = new Food(snake, map);
     public Main(){
-        System.out.println("你好");
         initFrame();//初始化窗体
         initPanel();//初始化面板
         initTime();//初始化定时器

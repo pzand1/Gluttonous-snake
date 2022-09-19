@@ -19,15 +19,27 @@ public class Snake {
         }
     }
 
+    private LinkedList<bodyCoor> body = new LinkedList<>();
     public LinkedList<bodyCoor> getBody() {
         return body;
     }
 
-    private LinkedList<bodyCoor> body = new LinkedList<>();
     Snake(Map m, int x, int y){
         body.add(new bodyCoor(x, y));
+        body.add(new bodyCoor(x, y));
+        body.add(new bodyCoor(x, y));
     }
-
+    //测试方法
+    Snake(){
+        body.add(new bodyCoor(5, 5));
+        body.add(new bodyCoor(5, 6));
+        body.add(new bodyCoor(5, 7));
+        body.add(new bodyCoor(5, 8));
+        body.add(new bodyCoor(5, 9));
+        body.add(new bodyCoor(5, 10));
+        body.add(new bodyCoor(5, 11));
+        body.add(new bodyCoor(5, 12));
+    }
     public void changeHeaded(int character){
         switch (character) {
             case 87, 38 -> {
