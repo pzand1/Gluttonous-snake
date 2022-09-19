@@ -3,6 +3,7 @@ import java.util.Objects;
 
 public class Snake {
     private String headed = "d";
+    private String current_headed = "d";
     class bodyCoor{
         private int x;
         private int y;
@@ -30,29 +31,26 @@ public class Snake {
     public void changeHeaded(int character){
         switch (character) {
             case 87, 38 -> {
-                if(!Objects.equals(this.headed, "s"))
+                if(!Objects.equals(this.current_headed, "s"))
                     this.headed = "w";
             }
             case 83, 40 -> {
-                if(!Objects.equals(this.headed, "w"))
+                if(!Objects.equals(this.current_headed, "w"))
                     this.headed = "s";
-                ;
             }
             case 65, 37 -> {
-                if(!Objects.equals(this.headed, "d"))
+                if(!Objects.equals(this.current_headed, "d"))
                     this.headed = "a";
-                ;
             }
             case 68, 39 -> {
-                if(!Objects.equals(this.headed, "a"))
+                if(!Objects.equals(this.current_headed, "a"))
                     this.headed = "d";
-                ;
             }
             default -> {
             }
         }
     }
-    //ÅĞ¶ÏÊÇ·ñËÀÍö
+    //åˆ¤æ–­æ˜¯å¦æ­»äº¡
     public boolean ifDied(){
         bodyCoor head = body.peekLast();
         for(bodyCoor b : body){
@@ -61,10 +59,11 @@ public class Snake {
         }
         return false;
     }
-    //ÒÆ¶¯
+    //ç§»åŠ¨
     public void move(Food f, Map m){
         bodyCoor head = body.getLast();
-        //ÏòÇ°ÒÆ¶¯
+        current_headed = headed;
+        //å‘å‰ç§»åŠ¨
         switch (this.headed) {
             case "s" -> body.add(new bodyCoor(head.x, head.y + 1));
             case "w" -> body.add(new bodyCoor(head.x, head.y - 1));
@@ -74,14 +73,14 @@ public class Snake {
             }
         }
         head = body.getLast();
-        //ÅĞ¶ÏÊÇ·ñÔ½µØÍ¼±ß½ç
+        //åˆ¤æ–­æ˜¯å¦è¶Šåœ°å›¾è¾¹ç•Œ
         if(head.x == m.getSize_x() || head.x == -1){
             head.x = m.getSize_x() - Math.abs(head.x);
         }
         if(head.y == m.getSize_y() || head.y == -1){
             head.y = m.getSize_y() - Math.abs(head.y);
         }
-        //ÅĞ¶ÏÊÇ·ñ³Ôµ½Ê³Îï
+        //åˆ¤æ–­æ˜¯å¦åƒåˆ°é£Ÿç‰©
         if(!(head.x == f.getX() && head.y == f.getY())){
             body.removeFirst();
         }else{

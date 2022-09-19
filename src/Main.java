@@ -7,15 +7,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Main extends JFrame {
-    private Timer timer;//´´½¨¶¨Ê±Æ÷
-    private JPanel jPanel;//´´½¨ÓÎÏ·ÆåÅÌ
+    private Timer timer;//åˆ›å»ºå®šæ—¶å™¨
+    private JPanel jPanel;//åˆ›å»ºæ¸¸æˆæ£‹ç›˜
     private Map map = new Map(610/15,600/15);
-    private Snake snake = new Snake(map, 0 ,39);//´´½¨Éß
+    private Snake snake = new Snake(map, 0 ,39);//åˆ›å»ºè›‡
     private Food food = new Food(snake, map);
     public Main(){
-        initFrame();//³õÊ¼»¯´°Ìå
-        initPanel();//³õÊ¼»¯Ãæ°å
-        initTime();//³õÊ¼»¯¶¨Ê±Æ÷
+        System.out.println("ä½ å¥½");
+        initFrame();//åˆå§‹åŒ–çª—ä½“
+        initPanel();//åˆå§‹åŒ–é¢æ¿
+        initTime();//åˆå§‹åŒ–å®šæ—¶å™¨
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -30,54 +31,57 @@ public class Main extends JFrame {
             @Override
             public void run() {
                 snake.move(food, map);
-                //ÖØĞÂ»æÖÆÓÎÏ·ÆåÅÌ
+                if(snake.ifDied()){
+                    timer.cancel();
+                }
+                //é‡æ–°ç»˜åˆ¶æ¸¸æˆæ£‹ç›˜
                 jPanel.repaint();
             }
         };
-        timer.scheduleAtFixedRate(timerTask,0,100);//0´ú±íÒ»¿ªÊ¼¾ÍÖ´ĞĞÃ»ÓĞÑÓ³Ù
+        timer.scheduleAtFixedRate(timerTask,0,100);//0ä»£è¡¨ä¸€å¼€å§‹å°±æ‰§è¡Œæ²¡æœ‰å»¶è¿Ÿ
     }
 
     private void initPanel(){
         jPanel = new JPanel(){
-            //»æÖÆÆåÅÌÀïµÄÄÚÈİ
+            //ç»˜åˆ¶æ£‹ç›˜é‡Œçš„å†…å®¹
             @Override
-            public void paint(Graphics g) {// gÊÇÒ»¸ö»­±Ê,ÓĞÄÚÖÃ»­µÄ·½·¨
-                //Çå¿ÕÃæ°å
+            public void paint(Graphics g) {// gæ˜¯ä¸€ä¸ªç”»ç¬”,æœ‰å†…ç½®ç”»çš„æ–¹æ³•
+                //æ¸…ç©ºé¢æ¿
                 g.clearRect(0,0,600,600);
 
-                //»æÖÆºáÏß
+                //ç»˜åˆ¶æ¨ªçº¿
                 for(int i = 0 ;i < 40;i++){
                     g.drawLine(0,i*15,600,i*15);
                 }
 
-                //»æÖÆÊúÏß
+                //ç»˜åˆ¶ç«–çº¿
                 for(int i = 0 ;i < 40;i++){
                     g.drawLine(i*15,0,i*15,600);
                 }
 
-                //»æÖÆÉß
+                //ç»˜åˆ¶è›‡
                 LinkedList<Snake.bodyCoor> body = snake.getBody();
-                for (Snake.bodyCoor bodyCoor : body) {//»ñÈ¡ÉßÉí±¾ÉíµÄºá×İ×ø±ê,È»ºó»æÖÆ
+                for (Snake.bodyCoor bodyCoor : body) {//è·å–è›‡èº«æœ¬èº«çš„æ¨ªçºµåæ ‡,ç„¶åç»˜åˆ¶
                     g.fillRect(bodyCoor.getX()*15, bodyCoor.getY()*15,15,15);
                 }
 
-                //»æÖÆÊ³Îï
+                //ç»˜åˆ¶é£Ÿç‰©
                 g.setColor(Color.BLUE);
                 g.fillRect(food.getX()*15,food.getY()*15,15,15);
                 g.setColor(Color.BLACK);
                 }
             };
 
-        add(jPanel);//add·½·¨ÊÇÔÚÃæ°åÉÏÌí¼Ó×é¼ş
+        add(jPanel);//addæ–¹æ³•æ˜¯åœ¨é¢æ¿ä¸Šæ·»åŠ ç»„ä»¶
     }
 
 
     private void initFrame() {//throws HeadlessException
-        setTitle("Ì°³ÔÉß´ó×÷Õ½");
-        setSize(610,640);//´°Ìå´óĞ¡
-        setLocation(600,300);//´°Ìå³öÏÖÎ»ÖÃ
-        setResizable(false);//²»¿É¸ü¸Ä´°Ìå´óĞ¡
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//ÉèÖÃÍË³ö°´Å¥
+        setTitle("è´ªåƒè›‡å¤§ä½œæˆ˜");
+        setSize(610,640);//çª—ä½“å¤§å°
+        setLocation(600,300);//çª—ä½“å‡ºç°ä½ç½®
+        setResizable(false);//ä¸å¯æ›´æ”¹çª—ä½“å¤§å°
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//è®¾ç½®é€€å‡ºæŒ‰é’®
     }
 
 
