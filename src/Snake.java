@@ -1,7 +1,8 @@
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Snake {
-    private String headed = "w";
+    private String headed = "d";
     class bodyCoor{
         private int x;
         private int y;
@@ -28,10 +29,25 @@ public class Snake {
 
     public void changeHeaded(int character){
         switch (character) {
-            case 87, 38 -> this.headed = "w";
-            case 83, 40 -> this.headed = "s";
-            case 65, 37 -> this.headed = "a";
-            case 68, 39 -> this.headed = "d";
+            case 87, 38 -> {
+                if(!Objects.equals(this.headed, "s"))
+                    this.headed = "w";
+            }
+            case 83, 40 -> {
+                if(!Objects.equals(this.headed, "w"))
+                    this.headed = "s";
+                ;
+            }
+            case 65, 37 -> {
+                if(!Objects.equals(this.headed, "d"))
+                    this.headed = "a";
+                ;
+            }
+            case 68, 39 -> {
+                if(!Objects.equals(this.headed, "a"))
+                    this.headed = "d";
+                ;
+            }
             default -> {
             }
         }
@@ -54,17 +70,22 @@ public class Snake {
             case "w" -> body.add(new bodyCoor(head.x, head.y - 1));
             case "a" -> body.add(new bodyCoor(head.x - 1, head.y));
             case "d" -> body.add(new bodyCoor(head.x + 1, head.y));
+            default -> {
+            }
         }
+        head = body.getLast();
         //判断是否越地图边界
-        if(head.x == m.getSize_x()){
-            head.x = 0;
+        if(head.x == m.getSize_x() || head.x == -1){
+            head.x = m.getSize_x() - Math.abs(head.x);
         }
-        if(head.y == m.getSize_y()){
-            head.y = 0;
+        if(head.y == m.getSize_y() || head.y == -1){
+            head.y = m.getSize_y() - Math.abs(head.y);
         }
         //判断是否吃到食物
         if(!(head.x == f.getX() && head.y == f.getY())){
             body.removeFirst();
+        }else{
+            f.createFood(this, m);
         }
 
     }

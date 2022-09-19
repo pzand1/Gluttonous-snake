@@ -10,12 +10,11 @@ public class Main extends JFrame {
     private Timer timer;//创建定时器
     private JPanel jPanel;//创建游戏棋盘
     private Map map = new Map(610/15,600/15);
-    private Snake snake = new Snake(map, 0 ,30);//创建蛇
+    private Snake snake = new Snake(map, 0 ,39);//创建蛇
     private Food food = new Food(snake, map);
     public Main(){
         initFrame();//初始化窗体
         initPanel();//初始化面板
-//        initSnack();//初始化蛇
         initTime();//初始化定时器
         this.addKeyListener(new KeyAdapter() {
             @Override
@@ -37,9 +36,6 @@ public class Main extends JFrame {
         };
         timer.scheduleAtFixedRate(timerTask,0,100);//0代表一开始就执行没有延迟
     }
-//    private void initSnack(){
-//        snake = new Snake();
-//    }
 
     private void initPanel(){
         jPanel = new JPanel(){
@@ -66,6 +62,9 @@ public class Main extends JFrame {
                 }
 
                 //绘制食物
+                g.setColor(Color.BLUE);
+                g.fillRect(food.getX()*15,food.getY()*15,15,15);
+                g.setColor(Color.BLACK);
                 }
             };
 

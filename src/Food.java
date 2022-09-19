@@ -4,7 +4,7 @@ public class Food {
     private int x;
     private int y;
     Food(Snake s, Map m){
-        creatFood(s, m);
+        createFood(s, m);
     }
     public int getX() {
         return x;
@@ -13,7 +13,7 @@ public class Food {
     public int getY() {
         return y;
     }
-    public void creatFood(Snake s, Map m) {
+    public void createFood(Snake s, Map m) {
         Random r = new Random();
         this.x = r.nextInt(m.getSize_x());
         this.y = r.nextInt(m.getSize_y());
@@ -28,7 +28,6 @@ public class Food {
                     break;
                 }
             }
-
         }
     }
 }
